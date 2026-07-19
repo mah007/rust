@@ -1,0 +1,17 @@
+# Rust build artifacts
+/target/
+**/target/
+
+# Backtraces
+rustc-ice-*.txt
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+*.swp
+.DS_Store
+.idea/
+.vscode/
