@@ -1,0 +1,52 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/oxide-web-core",
+    "crates/oxide-web-router",
+    "crates/oxide-web",
+    "crates/oxide-web-testing",
+    "examples/hello-world",
+]
+
+# Shared package metadata. Individual crates opt in with `field.workspace = true`.
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/mah007/rust"
+authors = ["Mahmoud AbdelLatif"]
+description = "oxide-web: a production-grade async HTTP server and web framework built on Tokio, Hyper, and the http crate."
+keywords = ["http", "web", "framework", "server", "async"]
+categories = ["web-programming::http-server", "network-programming"]
+
+# Centralized dependency versions so every crate resolves to the same version.
+# Version requirements are caret ranges; the exact resolved versions are pinned
+# in Cargo.lock and recorded in the README.
+[workspace.dependencies]
+# Internal crates
+oxide-web-core = { path = "crates/oxide-web-core", version = "0.1.0" }
+oxide-web-router = { path = "crates/oxide-web-router", version = "0.1.0" }
+oxide-web = { path = "crates/oxide-web", version = "0.1.0" }
+oxide-web-testing = { path = "crates/oxide-web-testing", version = "0.1.0" }
+
+# Async runtime & HTTP stack
+tokio = { version = "1", default-features = false }
+hyper = { version = "1", default-features = false }
+hyper-util = { version = "0.1", default-features = false }
+http = "1"
+http-body = "1"
+http-body-util = "0.1"
+bytes = "1"
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Dev / test
+tokio-test = "0.4"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "unwind"

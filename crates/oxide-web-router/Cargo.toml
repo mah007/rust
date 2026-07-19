@@ -1,0 +1,19 @@
+[package]
+name = "oxide-web-router"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Segment-trie router with method dispatch for the oxide-web framework."
+keywords.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[dependencies]
+oxide-web-core.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+http-body-util.workspace = true

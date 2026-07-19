@@ -1,0 +1,4 @@
+# Clippy configuration for the oxide-web workspace.
+# Keep the bar high: the lint levels themselves are set per-crate via
+# `#![deny(...)]` / `#![warn(...)]` and enforced in CI with `-D warnings`.
+avoid-breaking-exported-api = true

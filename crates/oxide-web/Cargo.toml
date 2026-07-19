@@ -1,0 +1,28 @@
+[package]
+name = "oxide-web"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "oxide-web: an ergonomic async web framework on Tokio, Hyper, and the http crate."
+keywords.workspace = true
+categories.workspace = true
+readme = "../../README.md"
+
+[lib]
+name = "oxide_web"
+
+[dependencies]
+oxide-web-core.workspace = true
+oxide-web-router.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
+http.workspace = true
+http-body-util.workspace = true
+oxide-web-testing.workspace = true
+hyper = { workspace = true, features = ["client", "http1"] }
+hyper-util = { workspace = true, features = ["tokio"] }
+bytes.workspace = true
