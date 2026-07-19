@@ -50,7 +50,7 @@ pub use oxide_web_core::shutdown;
 
 // Core request/response and server types.
 pub use oxide_web_core::{
-    Body, BoxError, BoxFuture, Handler, IntoResponse, IntoResponseParts, RemoteAddr, Request,
+    Body, BoxError, BoxFuture, Handler, Html, IntoResponse, IntoResponseParts, RemoteAddr, Request,
     Response, ResponseParts, ServerConfig, ServerError, Service, serve, serve_on,
 };
 

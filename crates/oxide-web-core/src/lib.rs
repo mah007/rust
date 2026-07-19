@@ -30,7 +30,7 @@ pub use body::Body;
 pub use error::{BoxError, ServerError};
 pub use handler::{BoxFuture, Handler, Route};
 pub use request::RemoteAddr;
-pub use response::{IntoResponse, IntoResponseParts, ResponseParts};
+pub use response::{Html, IntoResponse, IntoResponseParts, ResponseParts};
 pub use server::{ServerConfig, serve, serve_on};
 pub use service::Service;
 

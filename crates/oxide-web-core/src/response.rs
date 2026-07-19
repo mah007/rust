@@ -146,6 +146,40 @@ where
     }
 }
 
+/// An HTML response.
+///
+/// Wraps any body-convertible value and sets
+/// `Content-Type: text/html; charset=utf-8`.
+///
+/// # Examples
+///
+/// ```
+/// use oxide_web_core::{Html, IntoResponse, StatusCode};
+///
+/// let response = Html("<h1>Hello</h1>").into_response();
+/// assert_eq!(response.status(), StatusCode::OK);
+/// assert_eq!(
+///     response.headers().get("content-type").unwrap(),
+///     "text/html; charset=utf-8",
+/// );
+/// ```
+#[derive(Debug, Clone, Copy)]
+pub struct Html<T>(pub T);
+
+impl<T> IntoResponse for Html<T>
+where
+    T: Into<Body>,
+{
+    fn into_response(self) -> Response {
+        let mut response = Response::new(self.0.into());
+        response.headers_mut().insert(
+            header::CONTENT_TYPE,
+            HeaderValue::from_static("text/html; charset=utf-8"),
+        );
+        response
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -186,5 +220,22 @@ mod tests {
         let err: Result<&str, StatusCode> = Err(StatusCode::BAD_REQUEST);
         assert_eq!(ok.into_response().status(), StatusCode::OK);
         assert_eq!(err.into_response().status(), StatusCode::BAD_REQUEST);
+    }
+
+    #[tokio::test]
+    async fn html_sets_html_content_type() {
+        let response = Html("<h1>hi</h1>").into_response();
+        assert_eq!(response.status(), StatusCode::OK);
+        assert_eq!(
+            response.headers().get(header::CONTENT_TYPE).unwrap(),
+            "text/html; charset=utf-8"
+        );
+        assert_eq!(body_string(response).await, "<h1>hi</h1>");
+    }
+
+    #[tokio::test]
+    async fn html_accepts_owned_string() {
+        let response = Html(String::from("<p>x</p>")).into_response();
+        assert_eq!(body_string(response).await, "<p>x</p>");
     }
 }

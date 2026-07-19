@@ -6,6 +6,7 @@ members = [
     "crates/oxide-web",
     "crates/oxide-web-testing",
     "examples/hello-world",
+    "examples/landing-page",
 ]
 
 # Shared package metadata. Individual crates opt in with `field.workspace = true`.
